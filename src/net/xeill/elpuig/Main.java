@@ -20,14 +20,15 @@ public class Main {
                         menu.showConsultes();
                         String subsuboption = menu.askOption();
                         while (!subsuboption.equalsIgnoreCase("h")) {
+                            Consultes consultes = new Consultes(gestorDB.getConn());
                             if (subsuboption.equalsIgnoreCase("a")) {
-                                gestorDB.query1Consultes();
+                                consultes.queryConsultes();
                             } else if (subsuboption.equalsIgnoreCase("b")) {
-                                gestorDB.query2Consultes();
+                                consultes.queryConsultesArxius();
                             } else if (subsuboption.equalsIgnoreCase("c")) {
-                                gestorDB.query3Consultes();
+                                consultes.queryConsultesBiblioteques();
                             } else if (subsuboption.equalsIgnoreCase("d")) {
-                                gestorDB.query4Consultes();
+                                consultes.queryTotsArxius();
                             }
 
                             menu.showConsultes();
