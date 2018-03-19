@@ -18,6 +18,29 @@ public class GestorDB {
 
     public void tancarSessio() throws XQException {
         conn.close();
+        System.out.println("A reveure.");
+    }
+
+    public void query1(){
+
+        //for $a in doc("arxius-consultes_.xml")/xml/arxius-consultes
+        //return concat("Equipament: ", $a/Equipament/text(),". Consultes presencials: ", $a/ConsultesPresencialsSalesDeConsulta/text())
+    }
+
+    public void query2(){
+        //solo los arxius
+        //for $a in doc("arxius-consultes_.xml")/xml/arxius-consultes[TipusEquipament="Arxius"]
+        //return concat("Equipament: ", $a/Equipament/text(),". Consultes presencials: ", $a/ConsultesPresencialsSalesDeConsulta/text())
+    }
+
+    public void query3(){
+        //solo las bibliotecas
+        //for $a in doc("arxius-consultes_.xml")/xml/arxius-consultes[TipusEquipament="Biblioteques"]
+        //return concat("Equipament: ", $a/Equipament/text(),". Consultes presencials: ", $a/ConsultesPresencialsSalesDeConsulta/text())
+    }
+
+    public void query4(){
+
     }
 
     public void insertCommand(){

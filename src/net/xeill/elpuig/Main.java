@@ -1,8 +1,11 @@
 package net.xeill.elpuig;
 
+import javax.xml.xquery.XQException;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws XQException {
+        GestorDB gestorDB = new GestorDB();
         Menu menu = new Menu();
         menu.show();
 
@@ -61,7 +64,6 @@ public class Main {
             menu.show();
             option=menu.askOption();
         }
-
-        System.out.println("A reveure.");
+        gestorDB.tancarSessio();
     }
 }
