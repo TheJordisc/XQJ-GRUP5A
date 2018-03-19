@@ -62,10 +62,25 @@ public class GestorBD {
 
     }
 
-    public void query4Consultes(){
-        // for $a in doc("arxius-consultes_.xml")/xml/arxius-consultes
-        // return concat("Equipament: ", $a/Equipament/text()," Districte: ", $a/Districte/text()," Tipus equipament: ", $a/TipusEquipament/text()," Any: ", $a/Any/text()," Ambit: ", $a/Ambit/text(),
-        //       " Titularitat: ", $a/Titularitat/text(), " Latitud: ", $a/Latitud/text(), " Longitud: ", $a/Longitud/text(), " Consultes presencials: ", $a/ConsultesPresencialsSalesDeConsulta/text())
+    public void query4Consultes() throws XQException {
+        XQExpression query4 = conn.createExpression();
+        XQResultSequence query4Result = query4.executeQuery("for $a in doc(\"/db/GRUP5A/arxius-consultes_.xml\")/xml/arxius-consultes\n" +
+                "         return concat($a/Equipament/text(),\",\",$a/Districte/text(),\",\",$a/TipusEquipament/text(),\",\",$a/Any/text(),\",\",$a/Ambit/text(),\n" +
+                "               \",\",$a/Titularitat/text(),\",\",$a/Latitud/text(),\",\",$a/Longitud/text(),\",\",$a/ConsultesPresencialsSalesDeConsulta/text())");
+
+        while (query4Result.next()) {
+            String[] result = query4Result.getItemAsString(null).split(",");
+            System.out.println("Equipament: " + result[0]);
+            System.out.println("Districte: " + result[1]);
+            System.out.println("Tipus equipament: " + result[2]);
+            System.out.println("Any: " + result[3]);
+            System.out.println("Àmbit: " + result[4]);
+            System.out.println("Titularitat: " + result[5]);
+            System.out.println("Latitud: " + result[6]);
+            System.out.println("Longitud: " + result[7]);
+            System.out.println("Consultes presencials: " + result[8]);
+            System.out.println("---");
+        }
     }
 
     public void insertCommand(){
