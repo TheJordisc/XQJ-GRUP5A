@@ -19,4 +19,16 @@ public class GestorDB {
     public void tancarSessio() throws XQException {
         conn.close();
     }
+
+    public void insertCommand(){
+
+    }
+
+    public void updateCommand(){
+
+    }
+
+    public void deleteCommand(){
+
+    }
 }
