@@ -63,7 +63,9 @@ public class GestorBD {
     }
 
     public void query4Consultes(){
-
+        // for $a in doc("arxius-consultes_.xml")/xml/arxius-consultes
+        // return concat("Equipament: ", $a/Equipament/text()," Districte: ", $a/Districte/text()," Tipus equipament: ", $a/TipusEquipament/text()," Any: ", $a/Any/text()," Ambit: ", $a/Ambit/text(),
+        //       " Titularitat: ", $a/Titularitat/text(), " Latitud: ", $a/Latitud/text(), " Longitud: ", $a/Longitud/text(), " Consultes presencials: ", $a/ConsultesPresencialsSalesDeConsulta/text())
     }
 
     public void insertCommand(){
