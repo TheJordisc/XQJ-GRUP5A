@@ -5,7 +5,7 @@ import javax.xml.xquery.XQException;
 public class Main {
 
     public static void main(String[] args) throws XQException {
-        GestorDB gestorDB = new GestorDB();
+        GestorBD gestorDB = new GestorBD("192.168.22.153","8080","admin","admin");
         Menu menu = new Menu();
         menu.show();
 
@@ -20,6 +20,16 @@ public class Main {
                         menu.showConsultes();
                         String subsuboption = menu.askOption();
                         while (!subsuboption.equalsIgnoreCase("h")) {
+                            if (subsuboption.equalsIgnoreCase("a")) {
+                                gestorDB.query1Consultes();
+                            } else if (subsuboption.equalsIgnoreCase("b")) {
+                                gestorDB.query2Consultes();
+                            } else if (subsuboption.equalsIgnoreCase("c")) {
+                                gestorDB.query3Consultes();
+                            } else if (subsuboption.equalsIgnoreCase("d")) {
+                                gestorDB.query4Consultes();
+                            }
+
                             menu.showConsultes();
                             subsuboption = menu.askOption();
                         }
