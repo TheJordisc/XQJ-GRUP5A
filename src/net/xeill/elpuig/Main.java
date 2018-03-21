@@ -1,5 +1,7 @@
 package net.xeill.elpuig;
 
+import net.xeill.elpuig.controller.Consultes;
+
 import javax.xml.xquery.XQException;
 
 public class Main {

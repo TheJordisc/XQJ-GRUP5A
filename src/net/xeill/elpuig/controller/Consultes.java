@@ -1,4 +1,4 @@
-package net.xeill.elpuig;
+package net.xeill.elpuig.controller;
 
 import net.xeill.elpuig.model.ArxiuConsultes;
 
