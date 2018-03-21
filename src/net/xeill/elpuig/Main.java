@@ -3,10 +3,12 @@ package net.xeill.elpuig;
 import net.xeill.elpuig.controller.Consultes;
 
 import javax.xml.xquery.XQException;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws XQException {
+        Scanner scanner = new Scanner(System.in);
         GestorBD gestorDB = new GestorBD("192.168.22.153","8080","admin","admin");
         Menu menu = new Menu();
         menu.show();
@@ -35,8 +37,9 @@ public class Main {
                                 //TODO: Pedir datos + crear instancia
                                 consultes.insertArxiuConsultes(sfgsdgfsdgf);
                             } else if (subsuboption.equalsIgnoreCase("f")) {
-                                //TODO: Pedir dato
-                                consultes.deleteArxiuConsultes(sfgsdgfsdgf);
+                                System.out.println("Introdueix un nom d'equipament: ");
+                                String queryField = scanner.nextLine();
+                                consultes.deleteArxiuConsultes(queryField);
                             } else if (subsuboption.equalsIgnoreCase("g")) {
                                 //TODO: Pedir dato
                                 consultes.updateArxiuConsultes(sfgsdgfsdgf);
