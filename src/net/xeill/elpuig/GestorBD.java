@@ -25,20 +25,6 @@ public class GestorBD {
         System.out.println("A reveure.");
     }
 
-
-
-    public void insertCommand(){
-
-    }
-
-    public void updateCommand(){
-
-    }
-
-    public void deleteCommand(){
-
-    }
-
     public XQConnection getConn() {
         return conn;
     }

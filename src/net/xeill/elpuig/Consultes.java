@@ -1,5 +1,7 @@
 package net.xeill.elpuig;
 
+import net.xeill.elpuig.model.ArxiuConsultes;
+
 import javax.xml.xquery.XQConnection;
 import javax.xml.xquery.XQException;
 import javax.xml.xquery.XQExpression;
@@ -46,8 +48,6 @@ public class Consultes {
             System.out.println("Consultes: " + result[1]);
             System.out.println("---");
         }
-
-
     }
 
     public void queryTotsArxius() throws XQException {
@@ -69,5 +69,17 @@ public class Consultes {
             System.out.println("Consultes presencials: " + result[8]);
             System.out.println("---");
         }
+    }
+
+    public void insertArxiuConsultes(ArxiuConsultes arxiuConsultes) {
+        //TODO: Pedir datos y crear instancia en menú
+    }
+
+    public void deleteArxiuConsultes(String queryField) {
+        //TODO: Buscar por algún campo desde menú
+    }
+
+    public void updateArxiuConsultes(String queryField, String newValue) {
+        //TODO: Buscar por algún campo desde menú
     }
 }
