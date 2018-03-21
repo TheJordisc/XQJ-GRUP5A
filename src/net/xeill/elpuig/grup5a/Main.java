@@ -1,6 +1,6 @@
-package net.xeill.elpuig;
+package net.xeill.elpuig.grup5a;
 
-import net.xeill.elpuig.controller.Consultes;
+import net.xeill.elpuig.grup5a.controller.Consultes;
 
 import javax.xml.xquery.XQException;
 import java.util.Scanner;

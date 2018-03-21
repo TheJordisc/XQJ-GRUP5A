@@ -1,6 +1,6 @@
-package net.xeill.elpuig.controller;
+package net.xeill.elpuig.grup5a.controller;
 
-import net.xeill.elpuig.model.ArxiuConsultes;
+import net.xeill.elpuig.grup5a.model.ArxiuConsultes;
 
 import javax.xml.xquery.XQConnection;
 import javax.xml.xquery.XQException;
