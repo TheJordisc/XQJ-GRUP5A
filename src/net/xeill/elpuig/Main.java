@@ -31,6 +31,15 @@ public class Main {
                                 consultes.queryConsultesBiblioteques();
                             } else if (subsuboption.equalsIgnoreCase("d")) {
                                 consultes.queryTotsArxius();
+                            } else if (subsuboption.equalsIgnoreCase("e")) {
+                                //TODO: Pedir datos + crear instancia
+                                consultes.insertArxiuConsultes(sfgsdgfsdgf);
+                            } else if (subsuboption.equalsIgnoreCase("f")) {
+                                //TODO: Pedir dato
+                                consultes.deleteArxiuConsultes(sfgsdgfsdgf);
+                            } else if (subsuboption.equalsIgnoreCase("g")) {
+                                //TODO: Pedir dato
+                                consultes.updateArxiuConsultes(sfgsdgfsdgf);
                             }
 
                             menu.showConsultes();
