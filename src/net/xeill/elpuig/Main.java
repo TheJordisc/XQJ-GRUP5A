@@ -3,6 +3,8 @@ package net.xeill.elpuig;
 import net.xeill.elpuig.controller.Consultes;
 
 import javax.xml.xquery.XQException;
+import javax.xml.xquery.XQExpression;
+import javax.xml.xquery.XQResultSequence;
 import java.util.Scanner;
 
 public class Main {
@@ -39,9 +41,15 @@ public class Main {
                             } else if (subsuboption.equalsIgnoreCase("f")) {
                                 System.out.println("Introdueix un nom d'equipament: ");
                                 String queryField = scanner.nextLine();
-                                consultes.deleteArxiuConsultes(queryField);
+                                if(consultes.deleteArxiuConsultes(queryField)) {
+                                    System.out.println("Esborrat correctament.");
+                                } else {
+                                    System.out.println("Equipament no trobat");
+                                }
+
                             } else if (subsuboption.equalsIgnoreCase("g")) {
                                 //TODO: Pedir dato
+
                                 consultes.updateArxiuConsultes(sfgsdgfsdgf);
                             }
 

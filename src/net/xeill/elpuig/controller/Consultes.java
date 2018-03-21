@@ -2,10 +2,7 @@ package net.xeill.elpuig.controller;
 
 import net.xeill.elpuig.model.ArxiuConsultes;
 
-import javax.xml.xquery.XQConnection;
-import javax.xml.xquery.XQException;
-import javax.xml.xquery.XQExpression;
-import javax.xml.xquery.XQResultSequence;
+import javax.xml.xquery.*;
 
 public class Consultes {
     XQConnection conn;
@@ -75,11 +72,28 @@ public class Consultes {
         //TODO: Pedir datos y crear instancia en menú
     }
 
-    public void deleteArxiuConsultes(String queryField) {
+    public boolean deleteArxiuConsultes(String queryField) throws XQException {
         //TODO: Buscar por algún campo desde menú
+        XQExpression expression = conn.createExpression();
+        if (checkIfExists(queryField,expression)){
+            expression.executeCommand("update delete doc(\"/db/GRUP5A/arxius-consultes_.xml\")/xml/arxius-consultes[Equipament=\""+queryField+"\"]");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void updateArxiuConsultes(String queryField, String newValue) {
         //TODO: Buscar por algún campo desde menú
+    }
+
+    public boolean checkIfExists(String queryField, XQExpression expression) throws XQException {
+        XQResultSequence queryDeleteResult = expression.executeQuery("doc(\"/db/GRUP5A/arxius-consultes_.xml\")/xml/arxius-consultes[Equipament=\""+queryField+"\"]");
+
+        if (queryDeleteResult.getItem()!= null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
