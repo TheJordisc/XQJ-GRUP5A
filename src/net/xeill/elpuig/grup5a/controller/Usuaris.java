@@ -34,18 +34,22 @@ public class Usuaris {
             System.out.println("Usuaris de sales de consulta: " + stringArray[8]);
 
             String nota;
-            if(stringArray[9].isEmpty()) {
+            if(stringArray.length<10) {
                 nota="(No hi ha cap nota)";
             } else {
                 nota=stringArray[9];
             }
 
             System.out.println("Nota: " + nota);
+
+            System.out.println("----------------------------------");
         }
     }
 
-    public void querySumaUsuaris() {
-
+    public void querySumaUsuaris() throws XQException {
+        XQExpression query1 = conn.createExpression();
+        XQResultSequence query1Result = query1.executeQuery("sum(doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris_/UsuarisSalesDeConsulta)");
+        System.out.println(query1Result.getItemAsString(null));
     }
 
     public void queryPerEquipament() {
