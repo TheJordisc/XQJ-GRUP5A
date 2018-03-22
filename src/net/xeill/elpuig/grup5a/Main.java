@@ -1,11 +1,12 @@
 package net.xeill.elpuig;
 
-import net.xeill.elpuig.controller.Consultes;
-import net.xeill.elpuig.model.ArxiuConsultes;
+
+import net.xeill.elpuig.grup5a.GestorBD;
+import net.xeill.elpuig.grup5a.Menu;
+import net.xeill.elpuig.grup5a.controller.Consultes;
+import net.xeill.elpuig.grup5a.model.ArxiuConsultes;
 
 import javax.xml.xquery.XQException;
-import javax.xml.xquery.XQExpression;
-import javax.xml.xquery.XQResultSequence;
 import java.util.Scanner;
 
 public class Main {
