@@ -92,8 +92,12 @@ public class Consultes {
 
     }
 
-    public void updateArxiuConsultes(String queryField, String newValue) {
+    public void updateArxiuConsultes(String queryField, String newValue) throws XQException {
         //TODO: Buscar por algún campo desde menú
+        XQExpression expression = conn.createExpression();
+        expression.executeCommand( "update value\n" +
+                "doc(\"/db/GRUP5A/arxius-consultes_.xml\")xml/arxius-consultes[ConsultesPresencialsSalesDeConsulta=\""+queryField+"]" +
+                "with '" + newValue+"'");
     }
 
     public boolean checkIfExists(String queryField, XQExpression expression) throws XQException {
