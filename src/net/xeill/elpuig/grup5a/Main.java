@@ -18,7 +18,7 @@ public class Main {
         menu.show();
 
         String option=menu.askOption();
-        while (! option.equalsIgnoreCase("0")) {
+        while (! option.equalsIgnoreCase("b")) {
             if (option.equalsIgnoreCase("a")) {
                 menu.showSub();
                 String suboption = menu.askOption();
