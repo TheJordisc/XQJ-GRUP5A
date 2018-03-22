@@ -68,8 +68,17 @@ public class Consultes {
         }
     }
 
-    public void insertArxiuConsultes(ArxiuConsultes arxiuConsultes) {
+    public void insertArxiuConsultes(ArxiuConsultes arxiuConsultes) throws XQException {
         //TODO: Pedir datos y crear instancia en menú
+
+        XQExpression expression = conn.createExpression();
+        expression.executeCommand("update insert\n" +
+                "<arxius-consultes><Any>"+arxiuConsultes.getAny()+"</Any><Ambit>"+arxiuConsultes.getAmbit()+"</Ambit><Titularitat>"+arxiuConsultes.getTitularitat()+
+                "</Titularitat><Latitud>"+arxiuConsultes.getLatitud()+"</Latitud><Longitud>"+arxiuConsultes.getLongitud()+"</Longitud>" +
+                "<TipusEquipament>"+arxiuConsultes.getTipusEquipament()+"</TipusEquipament><Equipament>"+arxiuConsultes.getEquipament()+
+                "</Equipament><Districte>"+arxiuConsultes.getDistricte()+"</Districte><ConsultesPresencialsSalesDeConsulta>"+
+                arxiuConsultes.getConsultesPresencials()+"</ConsultesPresencialsSalesDeConsulta></arxius-consultes>" +
+                "preceding doc(\"/db/GRUP5A/arxius-consultes_.xml\")/xml/arxius-consultes[1]");
     }
 
     public boolean deleteArxiuConsultes(String queryField) throws XQException {
