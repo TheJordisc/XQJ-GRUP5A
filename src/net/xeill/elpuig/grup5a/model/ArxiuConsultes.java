@@ -1,4 +1,4 @@
-package net.xeill.elpuig.model;
+package net.xeill.elpuig.grup5a.model;
 
 public class ArxiuConsultes {
     private String any;

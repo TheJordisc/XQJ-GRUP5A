@@ -1,4 +1,4 @@
-package net.xeill.elpuig;
+package net.xeill.elpuig.grup5a;
 
 import java.util.Scanner;
 

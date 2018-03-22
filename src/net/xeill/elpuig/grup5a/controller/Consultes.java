@@ -1,6 +1,6 @@
-package net.xeill.elpuig.controller;
+package net.xeill.elpuig.grup5a.controller;
 
-import net.xeill.elpuig.model.ArxiuConsultes;
+import net.xeill.elpuig.grup5a.model.ArxiuConsultes;
 
 import javax.xml.xquery.*;
 
@@ -90,7 +90,7 @@ public class Consultes {
     public boolean checkIfExists(String queryField, XQExpression expression) throws XQException {
         XQResultSequence queryDeleteResult = expression.executeQuery("doc(\"/db/GRUP5A/arxius-consultes_.xml\")/xml/arxius-consultes[Equipament=\""+queryField+"\"]");
 
-        if (queryDeleteResult.getItem()!= null) {
+        if (queryDeleteResult.next()) {
             return true;
         }
         return false;
