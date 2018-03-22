@@ -78,9 +78,9 @@ public class Consultes {
         if (checkIfExists(queryField,expression)){
             expression.executeCommand("update delete doc(\"/db/GRUP5A/arxius-consultes_.xml\")/xml/arxius-consultes[Equipament=\""+queryField+"\"]");
             return true;
-        } else {
-            return false;
         }
+        return false;
+
     }
 
     public void updateArxiuConsultes(String queryField, String newValue) {
@@ -92,8 +92,8 @@ public class Consultes {
 
         if (queryDeleteResult.getItem()!= null) {
             return true;
-        } else {
-            return false;
         }
+        return false;
+
     }
 }

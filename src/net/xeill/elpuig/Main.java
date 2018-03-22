@@ -1,6 +1,7 @@
 package net.xeill.elpuig;
 
 import net.xeill.elpuig.controller.Consultes;
+import net.xeill.elpuig.model.ArxiuConsultes;
 
 import javax.xml.xquery.XQException;
 import javax.xml.xquery.XQExpression;
@@ -11,6 +12,8 @@ public class Main {
 
     public static void main(String[] args) throws XQException {
         Scanner scanner = new Scanner(System.in);
+        String any, ambit, titularitat, latitud, longitud, tipusEquipament, equipament, districte, consultesPresencials;
+
         GestorBD gestorDB = new GestorBD("192.168.22.153","8080","admin","admin");
         Menu menu = new Menu();
         menu.show();
@@ -36,11 +39,35 @@ public class Main {
                             } else if (subsuboption.equalsIgnoreCase("d")) {
                                 consultes.queryTotsArxius();
                             } else if (subsuboption.equalsIgnoreCase("e")) {
-                                //TODO: Pedir datos + crear instancia
-                                consultes.insertArxiuConsultes(sfgsdgfsdgf);
+
+
+                                System.out.println("Introdueix un any");
+                                any=scanner.nextLine();
+                                System.out.println("Introdueix un ambit");
+                                ambit=scanner.nextLine();
+                                System.out.println("Introdueix una titularitat");
+                                titularitat=scanner.nextLine();
+                                System.out.println("Introdueix una latitud");
+                                latitud=scanner.nextLine();
+                                System.out.println("Introdueix una longitud");
+                                longitud=scanner.nextLine();
+                                System.out.println("Introdueix un tipus de equipament");
+                                tipusEquipament=scanner.nextLine();
+                                System.out.println("Introdueix un districte");
+                                districte=scanner.nextLine();
+                                System.out.println("Introdueix un equipament");
+                                equipament=scanner.nextLine();
+                                System.out.println("Introdueix un nombre de consultes presencials");
+                                consultesPresencials=scanner.nextLine();
+
+                                ArxiuConsultes arxiuConsultes = new ArxiuConsultes(any, ambit, titularitat, latitud, longitud, tipusEquipament, districte, equipament, consultesPresencials);
+                                consultes.insertArxiuConsultes(arxiuConsultes);
+
                             } else if (subsuboption.equalsIgnoreCase("f")) {
                                 System.out.println("Introdueix un nom d'equipament: ");
                                 String queryField = scanner.nextLine();
+
+
                                 if(consultes.deleteArxiuConsultes(queryField)) {
                                     System.out.println("Esborrat correctament.");
                                 } else {
@@ -50,7 +77,7 @@ public class Main {
                             } else if (subsuboption.equalsIgnoreCase("g")) {
                                 //TODO: Pedir dato
 
-                                consultes.updateArxiuConsultes(sfgsdgfsdgf);
+                                //consultes.updateArxiuConsultes(sfgsdgfsdgf);
                             }
 
                             menu.showConsultes();
