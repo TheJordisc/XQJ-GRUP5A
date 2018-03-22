@@ -93,7 +93,11 @@ public class Main {
                                 System.out.println("Introdueix el nombre de consultes actualitzat: ");
                                 newValue=scanner.nextLine();
 
-                                consultes.updateArxiuConsultes(queryField, newValue);
+                                if(consultes.updateArxiuConsultes(queryField,newValue)) {
+                                    System.out.println("Modificat correctament.");
+                                } else {
+                                    System.out.println("Equipament no trobat");
+                                }
                             }
 
                             menu.showConsultes();

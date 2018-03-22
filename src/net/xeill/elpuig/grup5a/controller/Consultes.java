@@ -92,12 +92,16 @@ public class Consultes {
 
     }
 
-    public void updateArxiuConsultes(String queryField, String newValue) throws XQException {
+    public boolean updateArxiuConsultes(String queryField, String newValue) throws XQException {
         //TODO: Buscar por algún campo desde menú
         XQExpression expression = conn.createExpression();
-        expression.executeCommand( "update value\n" +
-                "doc(\"/db/GRUP5A/arxius-consultes_.xml\")xml/arxius-consultes[Equipament=\""+queryField+"\"]/ConsultesPresencialsSalesDeConsulta" +
-                "with '" + newValue+"'");
+        if (checkIfExists(queryField,expression)){
+            expression.executeCommand( "update value\n" +
+                    "doc(\"/db/GRUP5A/arxius-consultes_.xml\")/xml/arxius-consultes[Equipament=\""+queryField+"\"]/ConsultesPresencialsSalesDeConsulta \n" +
+                    "with '" + newValue + "'");
+            return true;
+        }
+        return false;
     }
 
     public boolean checkIfExists(String queryField, XQExpression expression) throws XQException {
