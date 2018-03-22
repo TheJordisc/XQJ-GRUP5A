@@ -38,28 +38,39 @@ public class Main {
                             } else if (subsuboption.equalsIgnoreCase("d")) {
                                 consultes.queryTotsArxius();
                             } else if (subsuboption.equalsIgnoreCase("e")) {
-                                String any, ambit, titularitat, latitud, longitud, tipusEquipament, equipament, districte, consultesPresencials;
+                                String any, ambit, titularitat, latitud, longitud, tipusEquipament, equipament, districte, consultesPresencials, nota;
 
-                                System.out.println("Introdueix un any");
+                                System.out.println("Introdueix un any: ");
                                 any=scanner.nextLine();
-                                System.out.println("Introdueix un ambit");
+
+                                System.out.println("Introdueix un ambit: ");
                                 ambit=scanner.nextLine();
-                                System.out.println("Introdueix una titularitat");
+
+                                System.out.println("Introdueix una titularitat: ");
                                 titularitat=scanner.nextLine();
-                                System.out.println("Introdueix una latitud");
+
+                                System.out.println("Introdueix una latitud: ");
                                 latitud=scanner.nextLine();
-                                System.out.println("Introdueix una longitud");
+
+                                System.out.println("Introdueix una longitud: ");
                                 longitud=scanner.nextLine();
-                                System.out.println("Introdueix un tipus de equipament");
+
+                                System.out.println("Introdueix un tipus de equipament: ");
                                 tipusEquipament=scanner.nextLine();
-                                System.out.println("Introdueix un districte");
+
+                                System.out.println("Introdueix un districte: ");
                                 districte=scanner.nextLine();
-                                System.out.println("Introdueix un equipament");
+
+                                System.out.println("Introdueix un equipament: ");
                                 equipament=scanner.nextLine();
-                                System.out.println("Introdueix un nombre de consultes presencials");
+
+                                System.out.println("Introdueix un nombre de consultes presencials: ");
                                 consultesPresencials=scanner.nextLine();
 
-                                ArxiuConsultes arxiuConsultes = new ArxiuConsultes(any, ambit, titularitat, latitud, longitud, tipusEquipament, districte, equipament, consultesPresencials);
+                                System.out.println("Introdueix una nota [opcional]:");
+                                nota=scanner.nextLine();
+
+                                ArxiuConsultes arxiuConsultes = new ArxiuConsultes(any, ambit, titularitat, latitud, longitud, tipusEquipament, districte, equipament, consultesPresencials, nota);
                                 consultes.insertArxiuConsultes(arxiuConsultes);
 
                             } else if (subsuboption.equalsIgnoreCase("f")) {
@@ -74,9 +85,15 @@ public class Main {
                                 }
 
                             } else if (subsuboption.equalsIgnoreCase("g")) {
-                                //TODO: Pedir dato
+                                String queryField,newValue;
 
-                                //consultes.updateArxiuConsultes(sfgsdgfsdgf);
+                                System.out.println("Introdueix el nom de l'equipament:");
+                                queryField=scanner.nextLine();
+
+                                System.out.println("Introdueix el nombre de consultes actualitzat: ");
+                                newValue=scanner.nextLine();
+
+                                consultes.updateArxiuConsultes(queryField, newValue);
                             }
 
                             menu.showConsultes();
@@ -163,7 +180,7 @@ public class Main {
                                     System.out.println("Introdueix el nom de l'equipament:");
                                     queryField=scanner.nextLine();
 
-                                    System.out.println("Introdueix el nombre de consultes actualitzat: ");
+                                    System.out.println("Introdueix el nombre d'usuaris actualitzat: ");
                                     newValue=scanner.nextLine();
 
                                     usuaris.updateArxiuUsuaris(queryField, newValue);
