@@ -10,8 +10,9 @@ public class ArxiuConsultes {
     private String equipament;
     private String districte;
     private String consultesPresencials;
+    private String nota;
 
-    public ArxiuConsultes(String any, String ambit, String titularitat, String latitud, String longitud, String tipusEquipament, String equipament, String districte, String consultesPresencials) {
+    public ArxiuConsultes(String any, String ambit, String titularitat, String latitud, String longitud, String tipusEquipament, String equipament, String districte, String consultesPresencials, String nota) {
         this.any = any;
         this.ambit = ambit;
         this.titularitat = titularitat;
@@ -21,6 +22,7 @@ public class ArxiuConsultes {
         this.equipament = equipament;
         this.districte = districte;
         this.consultesPresencials = consultesPresencials;
+        this.nota=nota;
     }
 
     public ArxiuConsultes() {
@@ -96,5 +98,13 @@ public class ArxiuConsultes {
 
     public void setConsultesPresencials(String consultesPresencials) {
         this.consultesPresencials = consultesPresencials;
+    }
+
+    public String getNota() {
+        return nota;
+    }
+
+    public void setNota(String nota) {
+        this.nota = nota;
     }
 }
