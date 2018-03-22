@@ -96,7 +96,7 @@ public class Consultes {
         //TODO: Buscar por algún campo desde menú
         XQExpression expression = conn.createExpression();
         expression.executeCommand( "update value\n" +
-                "doc(\"/db/GRUP5A/arxius-consultes_.xml\")xml/arxius-consultes[ConsultesPresencialsSalesDeConsulta=\""+queryField+"]" +
+                "doc(\"/db/GRUP5A/arxius-consultes_.xml\")xml/arxius-consultes[Equipament=\""+queryField+"\"]/ConsultesPresencialsSalesDeConsulta" +
                 "with '" + newValue+"'");
     }
 
