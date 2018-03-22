@@ -90,7 +90,7 @@ public class Consultes {
     public boolean checkIfExists(String queryField, XQExpression expression) throws XQException {
         XQResultSequence queryDeleteResult = expression.executeQuery("doc(\"/db/GRUP5A/arxius-consultes_.xml\")/xml/arxius-consultes[Equipament=\""+queryField+"\"]");
 
-        if (queryDeleteResult.getItem()!= null) {
+        if (queryDeleteResult.next()) {
             return true;
         } else {
             return false;
