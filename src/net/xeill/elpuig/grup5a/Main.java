@@ -1,9 +1,11 @@
 package net.xeill.elpuig.grup5a;
 
 import net.xeill.elpuig.grup5a.controller.Consultes;
+import net.xeill.elpuig.grup5a.controller.Prestecs;
 import net.xeill.elpuig.grup5a.controller.Usuaris;
 import net.xeill.elpuig.grup5a.model.ArxiuConsultes;
 import net.xeill.elpuig.grup5a.model.ArxiuUsuaris;
+import net.xeill.elpuig.grup5a.model.BibliotequesPrestecs;
 
 import javax.xml.xquery.XQException;
 import java.util.Scanner;
@@ -105,9 +107,81 @@ public class Main {
                         }
                         break;
                     } else if (suboption.equalsIgnoreCase("b")) {
-                        menu.showPrestecs();
+                        menu.showConsultes();
                         String subsuboption = menu.askOption();
                         while (!subsuboption.equalsIgnoreCase("h")) {
+                            Prestecs prestecs = new Prestecs(gestorDB.getConn());
+                            if (subsuboption.equalsIgnoreCase("a")) {
+                                prestecs.queryTotsPrestecs();
+                            } else if (subsuboption.equalsIgnoreCase("b")) {
+                                prestecs.queryEquipaments100MilPrestecs();
+                            } else if (subsuboption.equalsIgnoreCase("c")) {
+                                prestecs.querySumaPrestecs2016();
+                            } else if (subsuboption.equalsIgnoreCase("d")) {
+                                prestecs.queryPrestecsPerDistricte();
+                            } else if (subsuboption.equalsIgnoreCase("e")) {
+                                String any, ambit, titularitat, latitud, longitud, tipusEquipament, equipament, districte, numPrestecs, nota;
+
+                                System.out.println("Introdueix un any: ");
+                                any=scanner.nextLine();
+
+                                System.out.println("Introdueix un ambit: ");
+                                ambit=scanner.nextLine();
+
+                                System.out.println("Introdueix una titularitat: ");
+                                titularitat=scanner.nextLine();
+
+                                System.out.println("Introdueix una latitud: ");
+                                latitud=scanner.nextLine();
+
+                                System.out.println("Introdueix una longitud: ");
+                                longitud=scanner.nextLine();
+
+                                System.out.println("Introdueix un tipus de equipament: ");
+                                tipusEquipament=scanner.nextLine();
+
+                                System.out.println("Introdueix un districte: ");
+                                districte=scanner.nextLine();
+
+                                System.out.println("Introdueix un equipament: ");
+                                equipament=scanner.nextLine();
+
+                                System.out.println("Introdueix un nombre de préstecs: ");
+                                numPrestecs=scanner.nextLine();
+
+                                System.out.println("Introdueix una nota [opcional]:");
+                                nota=scanner.nextLine();
+
+                                BibliotequesPrestecs bibliotequesPrestecs = new BibliotequesPrestecs(any, ambit, titularitat, latitud, longitud, tipusEquipament, equipament, districte, numPrestecs, nota);
+                                prestecs.insertBibliotequesPrestecs(bibliotequesPrestecs);
+
+                            } else if (subsuboption.equalsIgnoreCase("f")) {
+                                System.out.println("Introdueix un nom d'equipament: ");
+                                String queryField = scanner.nextLine();
+
+
+                                if(prestecs.deleteBibliotequesPrestecs(queryField)) {
+                                    System.out.println("Esborrat correctament.");
+                                } else {
+                                    System.out.println("Equipament no trobat");
+                                }
+
+                            } else if (subsuboption.equalsIgnoreCase("g")) {
+                                String queryField,newValue;
+
+                                System.out.println("Introdueix el nom de l'equipament:");
+                                queryField=scanner.nextLine();
+
+                                System.out.println("Introdueix el nombre de préstecs actualitzat: ");
+                                newValue=scanner.nextLine();
+
+                                if(prestecs.updateBibliotequesPrestecs(queryField,newValue)) {
+                                    System.out.println("Modificat correctament.");
+                                } else {
+                                    System.out.println("Equipament no trobat");
+                                }
+                            }
+
                             menu.showConsultes();
                             subsuboption = menu.askOption();
                         }
