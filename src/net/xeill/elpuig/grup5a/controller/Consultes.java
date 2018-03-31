@@ -2,7 +2,12 @@ package net.xeill.elpuig.grup5a.controller;
 
 import net.xeill.elpuig.grup5a.model.ArxiuConsultes;
 
-import javax.xml.xquery.*;
+import javax.xml.xquery.XQConnection;
+import javax.xml.xquery.XQException;
+import javax.xml.xquery.XQExpression;
+import javax.xml.xquery.XQResultSequence;
+
+//import javax.xml.xquery.*;
 
 public class Consultes {
     XQConnection conn;

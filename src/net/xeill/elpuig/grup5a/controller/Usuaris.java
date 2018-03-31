@@ -48,7 +48,7 @@ public class Usuaris {
 
     public void querySumaUsuaris() throws XQException {
         XQExpression query1 = conn.createExpression();
-        XQResultSequence query1Result = query1.executeQuery("sum(doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris_/UsuarisSalesDeConsulta)");
+        XQResultSequence query1Result = query1.executeQuery("sum(doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris/UsuarisSalesDeConsulta)");
         System.out.println(query1Result.getItemAsString(null));
     }
 
