@@ -49,9 +49,8 @@ public class Usuaris {
     public void querySumaUsuaris() throws XQException {
         XQExpression query2 = conn.createExpression();
         XQResultSequence query2Result = query2.executeQuery("sum(doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris/UsuarisSalesDeConsulta)");
-        while (query2Result.next()) {
-            System.out.println("Quantitat total dels usuaris: "+ query2Result.getItemAsString(null));
-        }
+        query2Result.next();
+        System.out.println("Quantitat total d'usuaris: "+ query2Result.getItemAsString(null));
     }
 
     public void queryPerEquipament() throws XQException {
@@ -67,24 +66,56 @@ public class Usuaris {
 
     public void queryCompteAmbit() throws XQException {
         XQExpression query4 = conn.createExpression();
-        XQResultSequence query4Result = query4.executeQuery("let $doc := doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris/Ambit\n" +
-                "return\n" +
-                "count ($doc)");
+        XQResultSequence query4Result = query4.executeQuery("count(distinct-values(doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris/Ambit))");
         while (query4Result.next()) {
             System.out.println("Quantitat total d'ambits: "+ query4Result.getItemAsString(null));
         }
     }
 
-    public void insertArxiuUsuaris(ArxiuUsuaris arxiuUsuaris) {
-        //TODO: Pedir datos y crear instancia en menú
+    public void insertArxiuUsuaris(ArxiuUsuaris arxiuUsuaris) throws XQException {
+        XQExpression expression = conn.createExpression();
+        expression.executeCommand("update insert\n" +
+                "<arxius-usuaris>" +
+                "<Any>"+arxiuUsuaris.getAny()+"</Any>" +
+                "<Ambit>"+arxiuUsuaris.getAmbit()+"</Ambit>" +
+                "<Titularitat>"+arxiuUsuaris.getTitularitat() + "</Titularitat>" +
+                "<Latitud>"+arxiuUsuaris.getLatitud()+ "</Latitud>" +
+                "<Longitud>"+arxiuUsuaris.getLongitud()+"</Longitud>" +
+                "<TipusEquipament>"+arxiuUsuaris.getTipusEquipament()+"</TipusEquipament>" +
+                "<Equipament>"+arxiuUsuaris.getEquipament()+ "</Equipament>" +
+                "<Districte>"+ arxiuUsuaris.getDistricte()+"</Districte>" +
+                "<UsuarisSalesDeConsulta>"+ arxiuUsuaris.getUsuaris()+"</UsuarisSalesDeConsulta>" +
+                "</arxius-usuaris>" +
+                "preceding doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris[1]");
     }
 
-    public boolean deleteArxiuUsuaris(String queryField) {
-        //TODO: Buscar por algún campo desde menú
+    public boolean deleteArxiuUsuaris(String queryField) throws XQException {
+        XQExpression expression = conn.createExpression();
+        if (checkIfExists(queryField,expression)){
+            expression.executeCommand("update delete doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris[Equipament=\""+queryField+"\"]");
+            return true;
+        }
         return false;
     }
 
-    public void updateArxiuUsuaris(String queryField, String newValue) {
-        //TODO: Buscar por algún campo desde menú
+    public boolean updateArxiuUsuaris(String queryField, String newValue) throws XQException {
+        XQExpression expression = conn.createExpression();
+        if (checkIfExists(queryField,expression)){
+            expression.executeCommand( "update value\n" +
+                    "doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris[Equipament=\""+queryField+"\"]/UsuarisSalesDeConsulta \n" +
+                    "with '" + newValue + "'");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkIfExists(String queryField, XQExpression expression) throws XQException {
+        XQResultSequence queryDeleteResult = expression.executeQuery("doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris[Equipament=\""+queryField+"\"]");
+
+        if (queryDeleteResult.next()) {
+            return true;
+        }
+        return false;
+
     }
 }

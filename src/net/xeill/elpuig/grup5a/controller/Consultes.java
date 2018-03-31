@@ -72,8 +72,6 @@ public class Consultes {
     }
 
     public void insertArxiuConsultes(ArxiuConsultes arxiuConsultes) throws XQException {
-        //TODO: Pedir datos y crear instancia en menú
-
         XQExpression expression = conn.createExpression();
         expression.executeCommand("update insert\n" +
                 "<arxius-consultes><Any>"+arxiuConsultes.getAny()+"</Any><Ambit>"+arxiuConsultes.getAmbit()+"</Ambit><Titularitat>"+arxiuConsultes.getTitularitat()+
@@ -85,7 +83,6 @@ public class Consultes {
     }
 
     public boolean deleteArxiuConsultes(String queryField) throws XQException {
-        //TODO: Buscar por algún campo desde menú
         XQExpression expression = conn.createExpression();
         if (checkIfExists(queryField,expression)){
             expression.executeCommand("update delete doc(\"/db/GRUP5A/arxius-consultes_.xml\")/xml/arxius-consultes[Equipament=\""+queryField+"\"]");
@@ -96,7 +93,6 @@ public class Consultes {
     }
 
     public boolean updateArxiuConsultes(String queryField, String newValue) throws XQException {
-        //TODO: Buscar por algún campo desde menú
         XQExpression expression = conn.createExpression();
         if (checkIfExists(queryField,expression)){
             expression.executeCommand( "update value\n" +
