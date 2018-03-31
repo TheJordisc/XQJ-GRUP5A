@@ -7,8 +7,6 @@ import javax.xml.xquery.XQException;
 import javax.xml.xquery.XQExpression;
 import javax.xml.xquery.XQResultSequence;
 
-//import javax.xml.xquery.*;
-
 public class Consultes {
     XQConnection conn;
 

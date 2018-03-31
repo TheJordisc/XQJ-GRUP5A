@@ -47,17 +47,32 @@ public class Usuaris {
     }
 
     public void querySumaUsuaris() throws XQException {
-        XQExpression query1 = conn.createExpression();
-        XQResultSequence query1Result = query1.executeQuery("sum(doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris/UsuarisSalesDeConsulta)");
-        System.out.println(query1Result.getItemAsString(null));
+        XQExpression query2 = conn.createExpression();
+        XQResultSequence query2Result = query2.executeQuery("sum(doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris/UsuarisSalesDeConsulta)");
+        while (query2Result.next()) {
+            System.out.println("Quantitat total dels usuaris: "+ query2Result.getItemAsString(null));
+        }
     }
 
-    public void queryPerEquipament() {
-
+    public void queryPerEquipament() throws XQException {
+        XQExpression query3 = conn.createExpression();
+        XQResultSequence query3Result = query3.executeQuery("for $a in doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris\n" +
+                "return concat($a/Equipament/text(),\",\", $a/UsuarisSalesDeConsulta/text())");
+        while (query3Result.next()) {
+            String[] result = query3Result.getItemAsString(null).split(",");
+            System.out.println("Equipament: " + result[0]);
+            System.out.println("Usuaris: " + result[1]);
+        }
     }
 
-    public void queryCompteAmbit() {
-
+    public void queryCompteAmbit() throws XQException {
+        XQExpression query4 = conn.createExpression();
+        XQResultSequence query4Result = query4.executeQuery("let $doc := doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris/Ambit\n" +
+                "return\n" +
+                "count ($doc)");
+        while (query4Result.next()) {
+            System.out.println("Quantitat total d'ambits: "+ query4Result.getItemAsString(null));
+        }
     }
 
     public void insertArxiuUsuaris(ArxiuUsuaris arxiuUsuaris) {
