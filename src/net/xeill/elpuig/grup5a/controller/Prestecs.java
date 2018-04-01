@@ -68,21 +68,48 @@ public class Prestecs {
         System.out.println("Préstecs totals al 2016: "+ query3Result.getItemAsString(null));
     }
 
-    public void queryPrestecsPerDistricte() {
-
+    public void queryPrestecsPerDistricte() throws XQException {
+        XQExpression query4 = conn.createExpression();
+        XQResultSequence query4Result = query4.executeQuery("for $a in doc(\"/db/GRUP5A/biblioteques-prestecs_.xml\")/xml/biblioteques-prestecs\n" +
+                "order by $a/Districte ascending\n" +
+                "return concat($a/Districte/text(),\",\", $a/Prestecs/text())");
+        while (query4Result.next()) {
+            String[] result = query4Result.getItemAsString(null).split(",");
+            System.out.println(result[0]+" prestecs: "+ result[1]);
+        }
     }
 
-    public void insertBibliotequesPrestecs(BibliotequesPrestecs bibliotequesPrestecs) {
-
+    public void insertBibliotequesPrestecs(BibliotequesPrestecs bibliotequesPrestecs) throws XQException {
+        //check if works!
+        XQExpression expression = conn.createExpression();
+        expression.executeCommand("update insert\n" +
+                "<arxius-consultes><Any>"+bibliotequesPrestecs.getAny()+"</Any><Ambit>"+bibliotequesPrestecs.getAmbit()+"</Ambit><Titularitat>"+bibliotequesPrestecs.getTitularitat()+
+                "</Titularitat><Latitud>"+bibliotequesPrestecs.getLatitud()+"</Latitud><Longitud>"+bibliotequesPrestecs.getLongitud()+"</Longitud>" +
+                "<TipusEquipament>"+bibliotequesPrestecs.getTipusEquipament()+"</TipusEquipament><Equipament>"+bibliotequesPrestecs.getEquipament()+
+                "</Equipament><Districte>"+bibliotequesPrestecs.getDistricte()+"</Districte><Prestecs>"+
+                bibliotequesPrestecs.getPrestecs()+"</Prestecs></arxius-consultes>" +
+                "preceding doc(\"/db/GRUP5A/arxius-consultes_.xml\")/xml/arxius-consultes[1]");
     }
 
-    public boolean deleteBibliotequesPrestecs(String queryField) {
-
+    public boolean deleteBibliotequesPrestecs(String queryField) throws XQException {
+        //check if works!
+        XQExpression expression = conn.createExpression();
+        if (checkIfExists(queryField,expression)){
+            expression.executeCommand("update delete doc(\"/db/GRUP5A/biblioteques-prestecs_.xml\")/xml/biblioteques-prestecs[Equipament=\""+queryField+"\"]");
+            return true;
+        }
         return false;
     }
 
-    public boolean updateBibliotequesPrestecs(String queryField, String newValue) {
-
+    public boolean updateBibliotequesPrestecs(String queryField, String newValue) throws XQException {
+        //check if works!
+        XQExpression expression = conn.createExpression();
+        if (checkIfExists(queryField,expression)){
+            expression.executeCommand( "update value\n" +
+                    "doc(\"/db/GRUP5A/biblioteques-prestecs_.xml\")/xml/biblioteques-prestecs[Equipament=\""+queryField+"\"]/ConsultesPresencialsSalesDeConsulta \n" +
+                    "with '" + newValue + "'");
+            return true;
+        }
         return false;
     }
 
