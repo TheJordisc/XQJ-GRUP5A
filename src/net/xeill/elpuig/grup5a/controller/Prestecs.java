@@ -70,25 +70,29 @@ public class Prestecs {
 
     public void queryPrestecsPerDistricte() throws XQException {
         XQExpression query4 = conn.createExpression();
-        XQResultSequence query4Result = query4.executeQuery("for $a in doc(\"/db/GRUP5A/biblioteques-prestecs_.xml\")/xml/biblioteques-prestecs\n" +
-                "order by $a/Districte ascending\n" +
-                "return concat($a/Districte/text(),\",\", $a/Prestecs/text())");
+        XQResultSequence query4Result = query4.executeQuery("distinct-values(for $districte in doc(\"/db/GRUP5A/biblioteques-prestecs_.xml\")/xml/biblioteques-prestecs/Districte\n" +
+                "\treturn concat($districte/text(),\",\",sum(doc(\"/db/GRUP5A/biblioteques-prestecs_.xml\")/xml/biblioteques-prestecs[Districte=$districte]/Prestecs)))");
         while (query4Result.next()) {
             String[] result = query4Result.getItemAsString(null).split(",");
-            System.out.println(result[0]+" prestecs: "+ result[1]);
+            System.out.printf("%-24s %s préstecs\n",result[0],result[1]);
         }
     }
 
     public void insertBibliotequesPrestecs(BibliotequesPrestecs bibliotequesPrestecs) throws XQException {
-        //check if works!
         XQExpression expression = conn.createExpression();
         expression.executeCommand("update insert\n" +
-                "<arxius-consultes><Any>"+bibliotequesPrestecs.getAny()+"</Any><Ambit>"+bibliotequesPrestecs.getAmbit()+"</Ambit><Titularitat>"+bibliotequesPrestecs.getTitularitat()+
-                "</Titularitat><Latitud>"+bibliotequesPrestecs.getLatitud()+"</Latitud><Longitud>"+bibliotequesPrestecs.getLongitud()+"</Longitud>" +
-                "<TipusEquipament>"+bibliotequesPrestecs.getTipusEquipament()+"</TipusEquipament><Equipament>"+bibliotequesPrestecs.getEquipament()+
-                "</Equipament><Districte>"+bibliotequesPrestecs.getDistricte()+"</Districte><Prestecs>"+
-                bibliotequesPrestecs.getPrestecs()+"</Prestecs></arxius-consultes>" +
-                "preceding doc(\"/db/GRUP5A/arxius-consultes_.xml\")/xml/arxius-consultes[1]");
+                "<biblioteques-prestecs><Any>"+bibliotequesPrestecs.getAny()+"</Any>" +
+                "<Ambit>"+bibliotequesPrestecs.getAmbit()+"</Ambit>" +
+                "<Titularitat>"+bibliotequesPrestecs.getTitularitat()+ "</Titularitat>" +
+                "<Latitud>"+bibliotequesPrestecs.getLatitud()+"</Latitud>" +
+                "<Longitud>"+bibliotequesPrestecs.getLongitud()+"</Longitud>" +
+                "<TipusEquipament>"+bibliotequesPrestecs.getTipusEquipament()+"</TipusEquipament>" +
+                "<Equipament>"+bibliotequesPrestecs.getEquipament()+"</Equipament>" +
+                "<Districte>"+bibliotequesPrestecs.getDistricte()+"</Districte>" +
+                "<Prestecs>"+ bibliotequesPrestecs.getPrestecs()+"</Prestecs>" +
+                "<Nota>" + bibliotequesPrestecs.getNota() + "</Nota>" +
+                "</biblioteques-prestecs>\n" +
+                "preceding doc(\"/db/GRUP5A/biblioteques-prestecs_.xml\")/xml/biblioteques-prestecs[1]");
     }
 
     public boolean deleteBibliotequesPrestecs(String queryField) throws XQException {
@@ -106,7 +110,7 @@ public class Prestecs {
         XQExpression expression = conn.createExpression();
         if (checkIfExists(queryField,expression)){
             expression.executeCommand( "update value\n" +
-                    "doc(\"/db/GRUP5A/biblioteques-prestecs_.xml\")/xml/biblioteques-prestecs[Equipament=\""+queryField+"\"]/ConsultesPresencialsSalesDeConsulta \n" +
+                    "doc(\"/db/GRUP5A/biblioteques-prestecs_.xml\")/xml/biblioteques-prestecs[Equipament=\""+queryField+"\"]/Prestecs \n" +
                     "with '" + newValue + "'");
             return true;
         }

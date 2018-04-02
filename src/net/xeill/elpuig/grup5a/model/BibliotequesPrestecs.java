@@ -99,4 +99,12 @@ public class BibliotequesPrestecs {
     public void setPrestecs(String prestecs) {
         this.prestecs = prestecs;
     }
+
+    public String getNota() {
+        return nota;
+    }
+
+    public void setNota(String nota) {
+        this.nota = nota;
+    }
 }
