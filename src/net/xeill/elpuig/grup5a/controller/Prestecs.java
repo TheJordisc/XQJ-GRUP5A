@@ -96,7 +96,6 @@ public class Prestecs {
     }
 
     public boolean deleteBibliotequesPrestecs(String queryField) throws XQException {
-        //check if works!
         XQExpression expression = conn.createExpression();
         if (checkIfExists(queryField,expression)){
             expression.executeCommand("update delete doc(\"/db/GRUP5A/biblioteques-prestecs_.xml\")/xml/biblioteques-prestecs[Equipament=\""+queryField+"\"]");
@@ -106,7 +105,6 @@ public class Prestecs {
     }
 
     public boolean updateBibliotequesPrestecs(String queryField, String newValue) throws XQException {
-        //check if works!
         XQExpression expression = conn.createExpression();
         if (checkIfExists(queryField,expression)){
             expression.executeCommand( "update value\n" +
