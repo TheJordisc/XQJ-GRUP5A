@@ -2,10 +2,12 @@ package net.xeill.elpuig.grup5a;
 
 import net.xeill.elpuig.grup5a.controller.Consultes;
 import net.xeill.elpuig.grup5a.controller.Prestecs;
+import net.xeill.elpuig.grup5a.controller.UsosInternet;
 import net.xeill.elpuig.grup5a.controller.Usuaris;
 import net.xeill.elpuig.grup5a.model.ArxiuConsultes;
 import net.xeill.elpuig.grup5a.model.ArxiuUsuaris;
 import net.xeill.elpuig.grup5a.model.BibliotequesPrestecs;
+import net.xeill.elpuig.grup5a.model.BibliotequesUsosInternet;
 
 import javax.xml.xquery.XQException;
 import java.util.Scanner;
@@ -26,6 +28,9 @@ public class Main {
                 String suboption = menu.askOption();
 
                 while (!suboption.equalsIgnoreCase("f")) {
+
+                    // SUBMENU CONSULTES
+
                     if (suboption.equalsIgnoreCase("a")) {
                         menu.showConsultes();
                         String subsuboption = menu.askOption();
@@ -106,6 +111,9 @@ public class Main {
                             subsuboption = menu.askOption();
                         }
                         break;
+
+                        // SUBMENU PRESTECS
+
                     } else if (suboption.equalsIgnoreCase("b")) {
                         menu.showConsultes();
                         String subsuboption = menu.askOption();
@@ -186,15 +194,91 @@ public class Main {
                             subsuboption = menu.askOption();
                         }
                         break;
+
+                        // SUBMENU USOS INTERNET
+
                     } else if (suboption.equalsIgnoreCase("c")) {
                         menu.showInternet();
                         String subsuboption = menu.askOption();
                         while (!subsuboption.equalsIgnoreCase("h")) {
+                            UsosInternet usosInternet = new UsosInternet(gestorDB.getConn());
+                            if (subsuboption.equalsIgnoreCase("a")) {
+                                usosInternet.queryTotsUsosInternet();
+                            } else if (subsuboption.equalsIgnoreCase("b")) {
+                                usosInternet.queryEquipaments100MilUsosInternet();
+                            } else if (subsuboption.equalsIgnoreCase("c")) {
+                                usosInternet.querySumaUsosInternet2016();
+                            } else if (subsuboption.equalsIgnoreCase("d")) {
+                                usosInternet.queryUsosInternetPerDistricte();
+                            } else if (subsuboption.equalsIgnoreCase("e")) {
+                                String any, ambit, titularitat, latitud, longitud, tipusEquipament, equipament, districte, numUsosInternet, nota;
+
+                                System.out.println("Introdueix un any: ");
+                                any = scanner.nextLine();
+
+                                System.out.println("Introdueix un ambit: ");
+                                ambit = scanner.nextLine();
+
+                                System.out.println("Introdueix una titularitat: ");
+                                titularitat = scanner.nextLine();
+
+                                System.out.println("Introdueix una latitud: ");
+                                latitud = scanner.nextLine();
+
+                                System.out.println("Introdueix una longitud: ");
+                                longitud = scanner.nextLine();
+
+                                System.out.println("Introdueix un tipus de equipament: ");
+                                tipusEquipament = scanner.nextLine();
+
+                                System.out.println("Introdueix un districte: ");
+                                districte = scanner.nextLine();
+
+                                System.out.println("Introdueix un equipament: ");
+                                equipament = scanner.nextLine();
+
+                                System.out.println("Introdueix un nombre d'usos d'Internet: ");
+                                numUsosInternet = scanner.nextLine();
+
+                                System.out.println("Introdueix una nota [opcional]:");
+                                nota = scanner.nextLine();
+
+                                BibliotequesUsosInternet bibliotequesUsosInternet = new BibliotequesUsosInternet(any, ambit, titularitat, latitud, longitud, tipusEquipament, equipament, districte, numUsosInternet, nota);
+                                usosInternet.insertUsosInternet(bibliotequesUsosInternet);
+
+                            } else if (subsuboption.equalsIgnoreCase("f")) {
+                                System.out.println("Introdueix un nom d'equipament: ");
+                                String queryField = scanner.nextLine();
+
+
+                                if (usosInternet.deleteUsosInternet(queryField)) {
+                                    System.out.println("Esborrat correctament.");
+                                } else {
+                                    System.out.println("Equipament no trobat");
+                                }
+
+                            } else if (subsuboption.equalsIgnoreCase("g")) {
+                                String queryField, newValue;
+
+                                System.out.println("Introdueix el nom de l'equipament:");
+                                queryField = scanner.nextLine();
+
+                                System.out.println("Introdueix el nombre d'usos d'Internet actualitzat: ");
+                                newValue = scanner.nextLine();
+
+                                if (usosInternet.updateUsosInternet(queryField, newValue)) {
+                                    System.out.println("Modificat correctament.");
+                                } else {
+                                    System.out.println("Equipament no trobat");
+                                }
+                            }
                             menu.showConsultes();
                             subsuboption = menu.askOption();
                         }
-                        break;
-                        //USUARIS
+                            break;
+
+                        // SUBMENU USUARIS
+
                     } else if (suboption.equalsIgnoreCase("d")) {
                         menu.showUsuaris();
                         String subsuboption = menu.askOption();
@@ -265,6 +349,9 @@ public class Main {
                             subsuboption = menu.askOption();
                         }
                         break;
+
+                        // SUBMENU VISITES
+
                     } else if (suboption.equalsIgnoreCase("e")) {
                         menu.showVisites();
                         String subsuboption = menu.askOption();
