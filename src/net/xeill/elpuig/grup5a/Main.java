@@ -1,13 +1,7 @@
 package net.xeill.elpuig.grup5a;
 
-import net.xeill.elpuig.grup5a.controller.Consultes;
-import net.xeill.elpuig.grup5a.controller.Prestecs;
-import net.xeill.elpuig.grup5a.controller.UsosInternet;
-import net.xeill.elpuig.grup5a.controller.Usuaris;
-import net.xeill.elpuig.grup5a.model.ArxiuConsultes;
-import net.xeill.elpuig.grup5a.model.ArxiuUsuaris;
-import net.xeill.elpuig.grup5a.model.BibliotequesPrestecs;
-import net.xeill.elpuig.grup5a.model.BibliotequesUsosInternet;
+import net.xeill.elpuig.grup5a.controller.*;
+import net.xeill.elpuig.grup5a.model.*;
 
 import javax.xml.xquery.XQException;
 import java.util.Scanner;
@@ -17,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws XQException {
         Scanner scanner = new Scanner(System.in);
 
-        GestorBD gestorDB = new GestorBD("localhost","8080","admin","admin");
+        GestorBD gestorDB = new GestorBD("192.168.22.153","8080","admin","admin");
         Menu menu = new Menu();
         menu.show();
 
@@ -115,7 +109,7 @@ public class Main {
                         // SUBMENU PRESTECS
 
                     } else if (suboption.equalsIgnoreCase("b")) {
-                        menu.showConsultes();
+                        menu.showPrestecs();
                         String subsuboption = menu.askOption();
                         while (!subsuboption.equalsIgnoreCase("h")) {
                             Prestecs prestecs = new Prestecs(gestorDB.getConn());
@@ -190,7 +184,7 @@ public class Main {
                                 }
                             }
 
-                            menu.showConsultes();
+                            menu.showPrestecs();
                             subsuboption = menu.askOption();
                         }
                         break;
@@ -272,7 +266,7 @@ public class Main {
                                     System.out.println("Equipament no trobat");
                                 }
                             }
-                            menu.showConsultes();
+                            menu.showInternet();
                             subsuboption = menu.askOption();
                         }
                             break;
@@ -288,9 +282,9 @@ public class Main {
                             if (subsuboption.equalsIgnoreCase("a")) {
                                 usuaris.queryTotsUsuaris();
                             } else if (subsuboption.equalsIgnoreCase("b")) {
-                                usuaris.querySumaUsuaris();
-                            } else if (subsuboption.equalsIgnoreCase("c")) {
                                 usuaris.queryPerEquipament();
+                            } else if (subsuboption.equalsIgnoreCase("c")) {
+                                usuaris.querySumaUsuaris();
                             } else if (subsuboption.equalsIgnoreCase("d")) {
                                 usuaris.queryCompteAmbit();
                             } else if (subsuboption.equalsIgnoreCase("e")) {
@@ -345,7 +339,7 @@ public class Main {
                                 usuaris.updateArxiuUsuaris(queryField, newValue);
                             }
 
-                            menu.showConsultes();
+                            menu.showUsuaris();
                             subsuboption = menu.askOption();
                         }
                         break;
@@ -356,7 +350,78 @@ public class Main {
                         menu.showVisites();
                         String subsuboption = menu.askOption();
                         while (!subsuboption.equalsIgnoreCase("h")) {
-                            menu.showConsultes();
+                            Visites visites = new Visites(gestorDB.getConn());
+                            if (subsuboption.equalsIgnoreCase("a")) {
+                                visites.queryTotesVisites();
+                            } else if (subsuboption.equalsIgnoreCase("b")) {
+                                visites.queryEquipaments100MilVisites();
+                            } else if (subsuboption.equalsIgnoreCase("c")) {
+                                visites.querySumaVisites2016();
+                            } else if (subsuboption.equalsIgnoreCase("d")) {
+                                visites.queryVisitesPerDistricte();
+                            } else if (subsuboption.equalsIgnoreCase("e")) {
+                                String any, ambit, titularitat, latitud, longitud, tipusEquipament, equipament, districte, numVisites, nota;
+
+                                System.out.println("Introdueix un any: ");
+                                any = scanner.nextLine();
+
+                                System.out.println("Introdueix un ambit: ");
+                                ambit = scanner.nextLine();
+
+                                System.out.println("Introdueix una titularitat: ");
+                                titularitat = scanner.nextLine();
+
+                                System.out.println("Introdueix una latitud: ");
+                                latitud = scanner.nextLine();
+
+                                System.out.println("Introdueix una longitud: ");
+                                longitud = scanner.nextLine();
+
+                                System.out.println("Introdueix un tipus de equipament: ");
+                                tipusEquipament = scanner.nextLine();
+
+                                System.out.println("Introdueix un districte: ");
+                                districte = scanner.nextLine();
+
+                                System.out.println("Introdueix un equipament: ");
+                                equipament = scanner.nextLine();
+
+                                System.out.println("Introdueix un nombre de visites: ");
+                                numVisites = scanner.nextLine();
+
+                                System.out.println("Introdueix una nota [opcional]:");
+                                nota = scanner.nextLine();
+
+                                BibliotequesVisites bibliotequesVisites = new BibliotequesVisites(any, ambit, titularitat, latitud, longitud, tipusEquipament, equipament, districte, numVisites, nota);
+                                visites.insertVisites(bibliotequesVisites);
+
+                            } else if (subsuboption.equalsIgnoreCase("f")) {
+                                System.out.println("Introdueix un nom d'equipament: ");
+                                String queryField = scanner.nextLine();
+
+
+                                if (visites.deleteVisites(queryField)) {
+                                    System.out.println("Esborrat correctament.");
+                                } else {
+                                    System.out.println("Equipament no trobat");
+                                }
+
+                            } else if (subsuboption.equalsIgnoreCase("g")) {
+                                String queryField, newValue;
+
+                                System.out.println("Introdueix el nom de l'equipament:");
+                                queryField = scanner.nextLine();
+
+                                System.out.println("Introdueix el nombre de visites actualitzat: ");
+                                newValue = scanner.nextLine();
+
+                                if (visites.updateVisites(queryField, newValue)) {
+                                    System.out.println("Modificat correctament.");
+                                } else {
+                                    System.out.println("Equipament no trobat");
+                                }
+                            }
+                            menu.showVisites();
                             subsuboption = menu.askOption();
                         }
                         break;

@@ -36,8 +36,6 @@ public class Consultes {
     }
 
     public void queryConsultesBiblioteques() throws XQException {
-        //solo las bibliotecas
-
         XQExpression query3 = conn.createExpression();
         XQResultSequence query3Result = query3.executeQuery("for $a in doc(\"/db/GRUP5A/arxius-consultes_.xml\")/xml/arxius-consultes[TipusEquipament=\"Biblioteques\"]\n" +
                 "return concat($a/Equipament/text(),\",\",$a/ConsultesPresencialsSalesDeConsulta/text())");
