@@ -66,8 +66,7 @@ public class Usuaris {
 
     public void queryCompteAmbit() throws XQException {
         XQExpression query4 = conn.createExpression();
-        XQResultSequence query4Result = query4.executeQuery("c" +
-                "stinct-values(doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris/Ambit))");
+        XQResultSequence query4Result = query4.executeQuery("count(distinct-values(doc(\"/db/GRUP5A/arxius-usuaris_.xml\")/xml/arxius-usuaris/Ambit))");
         while (query4Result.next()) {
             System.out.println("Quantitat total d'ambits: "+ query4Result.getItemAsString(null));
         }

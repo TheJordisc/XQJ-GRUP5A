@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws XQException {
         Scanner scanner = new Scanner(System.in);
 
-        GestorBD gestorDB = new GestorBD("localhost","8080","admin","admin");
+        GestorBD gestorDB = new GestorBD("192.168.22.153","8080","admin","admin");
         Menu menu = new Menu();
         menu.show();
 
