@@ -72,6 +72,7 @@ public class Usuaris {
         }
     }
 
+
     public void insertArxiuUsuaris(ArxiuUsuaris arxiuUsuaris) throws XQException {
         XQExpression expression = conn.createExpression();
         expression.executeCommand("update insert\n" +
